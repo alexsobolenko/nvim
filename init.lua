@@ -1,4 +1,28 @@
 -- Basic
 require('core.plugins')
 require('core.mappings')
+require('core.colors')
+require('core.configs')
+
+-- Pluguns
+require('plugins.autopairs')
+require('plugins.autotag')
+require('plugins.bufferline')
+require('plugins.cmp')
+require('plugins.comment')
+require('plugins.dashboard')
+require('plugins.gitsigns')
+require('plugins.listchars')
+require('plugins.lsp')
+require('plugins.lualine')
+require('plugins.mason')
+require('plugins.neotree')
+require('plugins.nullls')
+require('plugins.outline')
+require('plugins.progress')
+require('plugins.telescope')
+require('plugins.toggleterm')
+require('plugins.treesitter')
+require('plugins.trim')
+require('plugins.whichkey')
 
