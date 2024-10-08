@@ -3,7 +3,7 @@ local cmp = require('cmp')
 cmp.setup({
     snippet = {
         expand = function(args)
-            vim.fn['vsnip#anonymous'](args.body) 
+            vim.fn['vsnip#anonymous'](args.body)
         end
     },
     window = {
@@ -32,14 +32,14 @@ cmp.setup({
         end, {'i', 's'})
     }),
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' }, 
+        { name = 'nvim_lsp' },
         { name = 'vsnip' },
     }, {
-        { name = 'buffer' }, 
+        { name = 'buffer' },
         { name = 'nvim_lsp_signature_help' },
     })
 })
- 
+
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
@@ -72,5 +72,4 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('lspconfig')['ts_ls'].setup({ capabilities = capabilities })
 require('lspconfig')['phpactor'].setup({ capabilities = capabilities })
-require('lspconfig')['ruby_lsp'].setup({ capabilities = capabilities })
 

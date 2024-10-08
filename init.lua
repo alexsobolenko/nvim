@@ -4,7 +4,7 @@ require('core.mappings')
 require('core.colors')
 require('core.configs')
 
--- Pluguns
+-- Plugins
 require('plugins.autopairs')
 require('plugins.autotag')
 require('plugins.bufferline')
@@ -17,7 +17,6 @@ require('plugins.lsp')
 require('plugins.lualine')
 require('plugins.mason')
 require('plugins.neotree')
-require('plugins.nullls')
 require('plugins.outline')
 require('plugins.progress')
 require('plugins.telescope')

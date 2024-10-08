@@ -50,7 +50,6 @@ require('lazy').setup({
             'nvim-lua/plenary.nvim',
         },
     },
-    { 'jose-elias-alvarez/null-ls.nvim' },
     { 'fraso-dev/nvim-listchars', config = true },
     { 'tpope/vim-surround' },
     { 'cappyzawa/trim.nvim' },
@@ -91,7 +90,9 @@ require('lazy').setup({
             'nvim-tree/nvim-web-devicons',
         },
     },
-    { 'folke/which-key.nvim' },
-    { 'echasnovski/mini.icons', version = '*' },
+    {
+        'folke/which-key.nvim',
+        event = { 'VeryLazy' },
+    },
 })
 
