@@ -1,5 +1,7 @@
-require('trim').setup({
-    ft_blocklist = {'markdown'},
+require("trim").setup({
+    ft_blocklist = {
+        "markdown",
+    },
 
     patterns = {
         [[%s/\(\n\n\)\n\+/\1/]],

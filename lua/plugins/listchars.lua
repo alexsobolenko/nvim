@@ -1,11 +1,10 @@
-require('nvim-listchars').setup({
+require("nvim-listchars").setup({
     save_state = false,
     listchars = {
-        trail = '-',
-        eol = '↲',
-        tab = '» ',
+        trail = "-",
+        eol = "↲",
+        tab = "» ",
     },
-    exclude_filetypes = { 'markdown' },
-    lighten_step = 10,
+    exclude_filetypes = { "markdown" },
 })
 

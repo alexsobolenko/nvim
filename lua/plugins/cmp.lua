@@ -1,9 +1,9 @@
-local cmp = require('cmp')
+local cmp = require("cmp")
 
 cmp.setup({
     snippet = {
         expand = function(args)
-            vim.fn['vsnip#anonymous'](args.body)
+            vim.fn["vsnip#anonymous"](args.body)
         end
     },
     window = {
@@ -11,65 +11,66 @@ cmp.setup({
         documentation = cmp.config.window.bordered()
     },
     mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({select = true}),
-        ['<Tab>'] = cmp.mapping(function(fallback)
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-e>"] = cmp.mapping.abort(),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             else
                 fallback()
             end
-        end, {'i', 's'}),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
+        end, {"i", "s"}),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             else
                 fallback()
             end
-        end, {'i', 's'})
+        end, {"i", "s"})
     }),
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' },
+        { name = "nvim_lsp" },
+        { name = "vsnip" },
+        { name = "emoji" },
     }, {
-        { name = 'buffer' },
-        { name = 'nvim_lsp_signature_help' },
+        { name = "buffer" },
+        { name = "nvim_lsp_signature_help" },
     })
 })
 
 -- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
+cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
-        { name = 'cmp_git' },
+        { name = "cmp_git" },
     }, {
-        { name = 'buffer' },
+        { name = "buffer" },
     })
 })
 
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({'/', '?'}, {
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won"t work anymore).
+cmp.setup.cmdline({"/", "?"}, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer' },
+        { name = "buffer" },
     }
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
+-- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
+cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        {name = 'path'},
+        {name = "path"},
     }, {
-        {name = 'cmdline'},
+        {name = "cmdline"},
     })
 })
 
 -- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-require('lspconfig')['ts_ls'].setup({ capabilities = capabilities })
-require('lspconfig')['phpactor'].setup({ capabilities = capabilities })
+require("lspconfig")["ts_ls"].setup({ capabilities = capabilities })
+require("lspconfig")["phpactor"].setup({ capabilities = capabilities })
 

@@ -1,2 +1,2 @@
-require('outline').setup({ })
+require("outline").setup({})
 
