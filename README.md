@@ -7,5 +7,6 @@
 # TODO
 
 1. Generate phpdocs
-2. Fix enusure install mason packages
-
+2. Generate getters and setters in php
+3. Twig support
+4. Refactor plugins dir

@@ -7,8 +7,12 @@ return {
         local lspconfig = require("lspconfig")
 
         lspconfig.intelephense.setup({
+            filetypes = { "php", "twig" },
             settings = {
                 intelephense = {
+                    files = {
+                        associations = { "*.twig" },
+                    },
                     stubs = {
                         "apache",
                         "bcmath",
@@ -69,4 +73,3 @@ return {
         lspconfig.html.setup({})
     end,
 }
-

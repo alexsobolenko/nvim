@@ -18,4 +18,3 @@ return {
         vim.api.nvim_set_keymap("n", "<Leader>g", ":lua require('neogen').generate({ type = 'func' })<CR>", { noremap = true, silent = true })
     end,
 }
-

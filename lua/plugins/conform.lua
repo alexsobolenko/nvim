@@ -15,6 +15,5 @@ return {
                 yaml = { "prettier" },
             },
         })
-    end
+    end,
 }
-

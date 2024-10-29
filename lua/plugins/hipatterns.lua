@@ -377,4 +377,3 @@ M.colors = {
 }
 
 return M.plugin
-

@@ -14,4 +14,3 @@ return {
         vim.cmd("ListcharsEnable")
     end,
 }
-

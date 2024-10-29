@@ -35,4 +35,3 @@ vim.keymap.set("n", "<leader>tv", ":ToggleTerm direction=vertical size=40<CR>")
 
 -- Markdown
 vim.keymap.set("n", "<leader>mp", ":Glow<CR>")
-

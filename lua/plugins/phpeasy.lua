@@ -31,4 +31,3 @@ return {
         {"-a", "<CMD>PHPEasyAppendArgument<CR>", ft = "php"},
     }
 }
-

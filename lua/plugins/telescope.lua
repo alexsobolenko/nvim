@@ -33,4 +33,3 @@ return {
         vim.keymap.set("n", "gd", builtin.lsp_definitions, {noremap = true, silent = true})
     end,
 }
-

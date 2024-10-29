@@ -11,4 +11,3 @@ return {
         require('phptools').setup({})
     end,
 }
-
