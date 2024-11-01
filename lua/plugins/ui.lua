@@ -5,6 +5,13 @@ return {
         dependencies = {
             { "nvim-tree/nvim-web-devicons" },
         },
+        keys = {
+            { "<Tab>", ":BufferLineCycleNext<CR>", mode = "n", desc = "Buffer next" },
+            { "<s-Tab>", ":BufferLineCyclePrev<CR>", mode = "n", desc = "Buffer previous" },
+            { "<leader>x", ":BufferLinePickClose<CR>", mode = "n", desc = "Buffer pick close" },
+            { "<leader>X", ":BufferLineCloseRight<CR>", mode = "n", desc = "Buffer close right" },
+            { "<leader>s", ":BufferLineSortByTabs<CR>", mode = "n", desc = "Buffers sort" },
+        },
         config = function()
             require("bufferline").setup({
                 options = {
@@ -117,6 +124,9 @@ return {
     -- glow
     {
         "ellisonleao/glow.nvim",
+        keys = {
+            { "<leader>mp", ":Glow<CR>", mode = "n", desc ="Markdown Preview" },
+        },
         config = function()
             require("glow").setup({
                 style = "dark",
@@ -129,17 +139,14 @@ return {
     {
         "fraso-dev/nvim-listchars",
         config = function()
-            require("nvim-listchars").setup {
+            require("nvim-listchars").setup({
                 listchars = {
                     trail = "-",
                     eol = "↲",
                     tab = "» ",
                 },
-                exclude_filetypes = {
-                    "markdown"
-                },
-            }
-            vim.cmd("ListcharsEnable")
+                exclude_filetypes = { "markdown" },
+            })
         end,
     },
 
@@ -222,6 +229,13 @@ return {
     -- notificatins
     {
         "rcarriga/nvim-notify",
+        keys = {
+            {
+                "<leader>un",
+                function() require("notify").dismiss({ silent = true, pending = true }) end,
+                desc = "Dismiss All Notifications",
+            },
+        },
         opts = {
             stages = "static",
             timeout = 3000,
@@ -273,7 +287,6 @@ return {
     },
 
     -- todo comments
-    -- TODO: replace keys to mappings config
     {
         "folke/todo-comments.nvim",
         cmd = {
@@ -282,36 +295,12 @@ return {
         },
         event = "BufRead",
         keys = {
-            {
-                "]t",
-                function() require("todo-comments").jump_next() end,
-                desc = "Next Todo Comment",
-            },
-            {
-                "[t",
-                function() require("todo-comments").jump_prev() end,
-                desc = "Previous Todo Comment",
-            },
-            {
-                "<leader>xt",
-                "<cmd>Trouble todo toggle<cr>",
-                desc = "Todo (Trouble)",
-            },
-            {
-                "<leader>xT",
-                "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>",
-                desc = "Todo/Fix/Fixme (Trouble)",
-            },
-            {
-                "<leader>st",
-                "<cmd>TodoTelescope<cr>",
-                desc = "Todo",
-            },
-            {
-                "<leader>sT",
-                "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",
-                desc = "Todo/Fix/Fixme",
-            },
+            { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
+            { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous Todo Comment" },
+            { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+            { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
+            { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+            { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
         },
     },
 
