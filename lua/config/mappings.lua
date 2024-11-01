@@ -35,3 +35,9 @@ vim.keymap.set("n", "<leader>tv", ":ToggleTerm direction=vertical size=40<CR>")
 
 -- Markdown
 vim.keymap.set("n", "<leader>mp", ":Glow<CR>")
+
+-- Notifications
+vim.keymap.set("n", "<leader>un", function() require("notify").dismiss({ silent = true, pending = true }) end)
+
+-- Neogen
+vim.keymap.set("n", "<Leader>g", ":lua require('neogen').generate({ type = 'func' })<CR>", { noremap = true, silent = true })

@@ -1,4 +1,5 @@
 vim.cmd("syntax on")
+vim.o.shortmess = vim.o.shortmess .. "I"
 
 vim.wo.number = true
 vim.wo.relativenumber = true
