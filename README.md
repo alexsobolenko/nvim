@@ -12,10 +12,10 @@
     * `typescript`
     * `yaml-language-server`
     * `jsregexp`
+4. Install `lazygit` to use `lazygit` plugin
 
 # TODO
 
 1. Generate phpdocs
-2. Generate getters and setters in php
-3. Twig support
-4. Refactor plugins dir
+2. Twig support
+3. Fix PHP analyse

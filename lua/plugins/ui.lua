@@ -5,13 +5,6 @@ return {
         dependencies = {
             { "nvim-tree/nvim-web-devicons" },
         },
-        keys = {
-            { "<Tab>", ":BufferLineCycleNext<CR>", mode = "n", desc = "Buffer next" },
-            { "<s-Tab>", ":BufferLineCyclePrev<CR>", mode = "n", desc = "Buffer previous" },
-            { "<leader>x", ":BufferLinePickClose<CR>", mode = "n", desc = "Buffer pick close" },
-            { "<leader>X", ":BufferLineCloseRight<CR>", mode = "n", desc = "Buffer close right" },
-            { "<leader>s", ":BufferLineSortByTabs<CR>", mode = "n", desc = "Buffers sort" },
-        },
         config = function()
             require("bufferline").setup({
                 options = {
@@ -38,6 +31,29 @@ return {
                     separator_style = "slope",
                 },
             })
+
+            vim.api.nvim_set_keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", {
+                noremap = true,
+                silent = true,
+                desc = "Next buffer",
+            })
+            vim.api.nvim_set_keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", {
+                noremap = true,
+                silent = true,
+                desc = "Previous buffer",
+            })
+            vim.api.nvim_set_keymap("n", "<leader>bc", ":bdelete<CR>", {
+                noremap = true,
+                silent = true,
+                desc = "Close buffer",
+            })
+            for i = 1, 9 do
+                vim.api.nvim_set_keymap("n", "<leader>" .. i, ":BufferLineGoToBuffer " .. i .. "<CR>", {
+                    noremap = true,
+                    silent = true,
+                    desc = "Go to buffer " .. i,
+                })
+            end
         end,
     },
 
@@ -160,30 +176,58 @@ return {
             require("lualine").setup({
                 options = {
                     theme = "onedark",
-                    section_separators = { left = "", right = "" },
-                    component_separators = { left = "", right = "" },
+                    section_separators = { left = "", right = "" },
+                    component_separators = { left = "", right = "" },
                     icons_enabled = true,
                 },
                 sections = {
                     lualine_a = {
                         {
                             "mode",
-                            separator = { left = "" },
+                            separator = { left = "" },
                             right_padding = 2,
                         },
                     },
                     lualine_b = {
+                        "fileformat",
                         "filename",
                         "branch",
-                        require("lsp-progress").progress,
+                        {
+                            "diff",
+                            symbols = {
+                                added = " ",
+                                modified = " ",
+                                removed = " ",
+                            },
+                        },
                     },
-                    lualine_c = { "fileformat" },
+                    lualine_c = {
+                        function()
+                            return require("lsp-progress").progress()
+                        end,
+                    },
                     lualine_x = {},
-                    lualine_y = { "filetype", "progress" },
+                    lualine_y = {
+                        {
+                            "diagnostics",
+                            sources = { "nvim_diagnostic" },
+                            symbols = {
+                                error = " ",
+                                warn = " ",
+                                info = " ",
+                            },
+                        },
+                        {
+                            "o:encoding",
+                            fmt = string.upper,
+                        },
+                        "filetype",
+                        "progress",
+                    },
                     lualine_z = {
                         {
                             "location",
-                            separator = { right = "" },
+                            separator = { right = "" },
                             left_padding = 2,
                         },
                     },
@@ -201,8 +245,6 @@ return {
             })
         end,
     },
-
-
 
     -- noice (command line)
     {
@@ -320,6 +362,24 @@ return {
                     hint = "",
                     information = "",
                 },
+            })
+        end,
+    },
+
+    -- virtcolumn
+    {
+        "lukas-reineke/virt-column.nvim",
+        config = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "*",
+                callback = function()
+                    if vim.bo.filetype ~= "dashboard" then
+                        require("virt-column").setup({
+                            char = "│",
+                            virtcolumn = "120",
+                        })
+                    end
+                end,
             })
         end,
     },

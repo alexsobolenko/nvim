@@ -77,14 +77,29 @@ return {
         "neovim/nvim-lspconfig",
         dependencies = {
             { "williamboman/mason.nvim" },
+            { "onsails/lspkind-nvim" },
         },
         config = function()
             local lspconfig = require("lspconfig")
+            local lspkind = require("lspkind")
+
+            lspkind.init({
+                mode = "symbol",
+            })
 
             lspconfig.intelephense.setup({
+                flags = {
+                    debounce_text_changes = 150,
+                },
                 filetypes = { "php", "twig" },
                 settings = {
                     intelephense = {
+                        files = {
+                            maxSize = 5000000,
+                        },
+                        diagnostics = {
+                            enable = true,
+                        },
                         stubs = {
                             "apache",
                             "bcmath",
@@ -116,6 +131,7 @@ return {
                             "Phar",
                             "readline",
                             "redis",
+                            "reflection",
                             "session",
                             "SimpleXML",
                             "sockets",
@@ -234,7 +250,18 @@ return {
     {
         "jose-elias-alvarez/null-ls.nvim",
         config = function()
-            require("null-ls").setup({})
+            local null_ls = require("null-ls")
+            local utils = require("null-ls.utils")
+            null_ls.setup({
+                root_dir = utils.root_pattern("composer.json", "package.json", "Makefile", ".git"),
+                diagnostics_format = "#{m} (#{c}) [#{s}]",
+                sources = {
+                    null_ls.builtins.diagnostics.phpcs.with({
+                        command = "vendor/bin/phpcs",
+                        method = null_ls.methods.DIAGNOSTICS,
+                    }),
+                },
+            })
         end,
     },
 
