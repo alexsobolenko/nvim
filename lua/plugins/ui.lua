@@ -8,27 +8,60 @@ return {
         config = function()
             require("bufferline").setup({
                 options = {
-                    numbers = "ordinal",
                     close_command = "bdelete! %d",
                     right_mouse_command = "bdelete! %d",
                     left_mouse_command = "buffer %d",
                     buffer_close_icon = "",
-                    modified_icon = "●",
-                    mode = "buffers",
+                    numbers = "ordinal",
+                    show_close_icons = true,
                     offsets = {
+                        { rhs = 1, min = 0, max = 12 },
                         {
                             filetype = "neo-tree",
                             text = "File Explorer",
                             separator = true,
                             padding = 1,
                         },
+
                     },
+                    mode = "buffers",
                     diagnostics = "nvim_lsp",
                     indicator = {
                         icon = "  ",
                         style = "icon",
                     },
-                    separator_style = "slope",
+                    shape = "rounded",
+                    padding = {
+                        left = 0,
+                        right = 1,
+                        top = 0,
+                        bottom = 0
+                    },
+                    border = {
+                        "rounded",
+                        { l = " ", r = " " },
+                    },
+                    virtual_text = true,
+                    custom_arround_filetypes = {
+                        cpp = { "clangd" },
+                        lua = { "null-ls" },
+                    },
+                    highlight_group = {
+                        normal = 'BufferLine',
+                        buffer_selected = 'BufferLine_BufferSelected',
+                        buffer_visible = 'BufferLine_BufferVisible',
+                        buffer_close = 'BufferLine_BufferClose',
+                        buffer_directory = 'Directory',
+                        buffer_modified = 'Modified',
+                        buffer_not_saved = 'NonSaved',
+                        buffer_insert = 'Insert',
+                        buffer_visual = 'Visual',
+                        buffer_leaf = 'Leaf',
+                        buffer_expand = 'Expandable',
+                        buffer_collapse = 'Collapsible',
+                        indicator_selected = 'BufferLine_IndicatorSelected',
+                        indicator_normal = 'BufferLine_IndicatorNormal',
+                    },
                 },
             })
 
@@ -173,18 +206,35 @@ return {
             { "nvim-tree/nvim-web-devicons" },
         },
         config = function()
+            local monokai_theme = {
+                normal = {
+                    a = { fg = "#272822", bg = "#f92672", gui = "bold" },
+                    b = { fg = "#f8f8f2", bg = "#49483e" },
+                    c = { fg = "#f8f8f2", bg = "#272822" },
+                },
+                insert = { a = { fg = "#272822", bg = "#a6e22e", gui = "bold" } },
+                visual = { a = { fg = "#272822", bg = "#66d9ef", gui = "bold" } },
+                replace = { a = { fg = "#272822", bg = "#fd971f", gui = "bold" } },
+                command = { a = { fg = "#272822", bg = "#ae81ff", gui = "bold" } },
+                inactive = {
+                    a = { fg = "#f8f8f2", bg = "#49483e", gui = "bold" },
+                    b = { fg = "#f8f8f2", bg = "#272822" },
+                    c = { fg = "#f8f8f2", bg = "#272822" },
+                },
+            }
+
             require("lualine").setup({
                 options = {
-                    theme = "onedark",
-                    section_separators = { left = "", right = "" },
-                    component_separators = { left = "", right = "" },
+                    theme = monokai_theme,
+                    component_separators = { left = "│", right = "│" },
+                    section_separators = { left = "", right = "" },
                     icons_enabled = true,
                 },
                 sections = {
                     lualine_a = {
                         {
                             "mode",
-                            separator = { left = "" },
+                            separator = { left = "" },
                             right_padding = 2,
                         },
                     },
@@ -194,11 +244,7 @@ return {
                         "branch",
                         {
                             "diff",
-                            symbols = {
-                                added = " ",
-                                modified = " ",
-                                removed = " ",
-                            },
+                            symbols = { added = " ", modified = " ", removed = " " },
                         },
                     },
                     lualine_c = {
@@ -211,11 +257,7 @@ return {
                         {
                             "diagnostics",
                             sources = { "nvim_diagnostic" },
-                            symbols = {
-                                error = " ",
-                                warn = " ",
-                                info = " ",
-                            },
+                            symbols = { error = "✘ ", warn = "⚠ ", info = "ℹ " },
                         },
                         {
                             "o:encoding",
@@ -227,7 +269,7 @@ return {
                     lualine_z = {
                         {
                             "location",
-                            separator = { right = "" },
+                            separator = { right = "" },
                             left_padding = 2,
                         },
                     },

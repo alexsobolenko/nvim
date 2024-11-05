@@ -152,13 +152,16 @@ return {
                 },
             })
             lspconfig.volar.setup({})
+
             lspconfig.cssls.setup({})
+
             lspconfig.dockerls.setup({})
+
             lspconfig.html.setup({})
+
             lspconfig.ts_ls.setup({})
+
             lspconfig.yamlls.setup({})
-            lspconfig.cssls.setup({})
-            lspconfig.html.setup({})
         end,
     },
 
