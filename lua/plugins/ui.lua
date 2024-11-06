@@ -1,4 +1,38 @@
 return {
+    -- alpha
+    {
+        "goolord/alpha-nvim",
+        event = { "VimEnter" },
+        config = function()
+            local alpha = require("alpha")
+
+            local dashboard = require("alpha.themes.dashboard")
+            dashboard.section.header.val = {
+                "", "", "", "", "", "",
+                "ooooo      ooo oooooooooooo   .oooooo.   oooooo     oooo ooooo ooo        ooooo",
+                "`888b.     `8' `888'     `8  d8P'  `Y8b   `888.     .8'  `888' `88.       .888'",
+                " 8 `88b.    8   888         888      888   `888.   .8'    888   888b     d'888 ",
+                " 8   `88b.  8   888oooo8    888      888    `888. .8'     888   8 Y88. .P  888 ",
+                " 8     `88b.8   888    '    888      888     `888.8'      888   8  `888'   888 ",
+                " 8       `888   888       o `88b    d88'      `888'       888   8    Y     888 ",
+                "o8o        `8  o888ooooood8  `Y8bood8P'        `8'       o888o o8o        o888o",
+                "", "", "", "", "",
+            }
+            dashboard.section.buttons.val = {
+                dashboard.button("e", "󰙅     Open tree", ":Neotree float<CR>"),
+                dashboard.button("f", "󰈞     Find files", ":Telescope find_files<CR>"),
+                dashboard.button("w", "     Find text", ":Telescope live_grep<CR>"),
+                dashboard.button("l", "     Git Braches", ":Telescope git_branches<CR>"),
+                dashboard.button("b", "     Lazy", ":Lazy<CR>"),
+                dashboard.button("q", "󰈆     Quit", ":q<CR>"),
+            }
+
+            alpha.setup(dashboard.opts)
+
+            vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
+        end,
+    },
+
     -- bufferline
     {
         "akinsho/bufferline.nvim",
@@ -90,86 +124,6 @@ return {
         end,
     },
 
-    -- dashboard
-    {
-        "glepnir/dashboard-nvim",
-        event = "VimEnter",
-        config = function()
-            require("dashboard").setup({
-                theme = "doom",
-                config = {
-                    header = {
-                        "", "", "", "", "", "", "", "",
-                        "ooooo      ooo oooooooooooo   .oooooo.   oooooo     oooo ooooo ooo        ooooo",
-                        "`888b.     `8' `888'     `8  d8P'  `Y8b   `888.     .8'  `888' `88.       .888'",
-                        " 8 `88b.    8   888         888      888   `888.   .8'    888   888b     d'888 ",
-                        " 8   `88b.  8   888oooo8    888      888    `888. .8'     888   8 Y88. .P  888 ",
-                        " 8     `88b.8   888    '    888      888     `888.8'      888   8  `888'   888 ",
-                        " 8       `888   888       o `88b    d88'      `888'       888   8    Y     888 ",
-                        "o8o        `8  o888ooooood8  `Y8bood8P'        `8'       o888o o8o        o888o",
-                        "", "", "", "", "", "",
-                    },
-                    center = {
-                        {
-                            icon = "󰙅   ",
-                            icon_hl = "Title",
-                            desc = "Open tree",
-                            desc_hl = "String",
-                            key = "e",
-                            key_hl = "Number",
-                            action = ":Neotree float",
-                        },
-                        {
-                            icon = "󰈞   ",
-                            icon_hl = "Title",
-                            desc = "Find files",
-                            desc_hl = "String",
-                            key = "f",
-                            key_hl = "Number",
-                            action = ":Telescope find_files",
-                        },
-                        {
-                            icon = "   ",
-                            icon_hl = "Title",
-                            desc = "Find text",
-                            desc_hl = "String",
-                            key = "w",
-                            key_hl = "Number",
-                            action = ":Telescope live_grep",
-                        },
-                        {
-                            icon = "   ",
-                            icon_hl = "Title",
-                            desc = "Git Braches",
-                            desc_hl = "String",
-                            key = "b",
-                            key_hl = "Number",
-                            action = ":Telescope git_branches",
-                        },
-                        {
-                            icon = "   ",
-                            icon_hl = "Title",
-                            desc = "Lazy",
-                            desc_hl = "String",
-                            key = "l",
-                            key_hl = "Number",
-                            action = ":Lazy",
-                        },
-                        {
-                            icon = "󰈆   ",
-                            icon_hl = "Title",
-                            desc = "Quit",
-                            desc_hl = "String",
-                            key = "q",
-                            key_hl = "Number",
-                            action = ":q",
-                        },
-                    },
-                },
-            })
-        end,
-    },
-
     -- glow
     {
         "ellisonleao/glow.nvim",
@@ -182,6 +136,16 @@ return {
                 border = "rounded",
             })
         end,
+    },
+
+    -- indentline
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        main = "ibl",
+        opts = {
+            indent = { char = "┊" },
+        },
     },
 
     -- listchars
