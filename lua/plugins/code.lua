@@ -1,12 +1,4 @@
 return {
-    -- autotag
-    {
-        "windwp/nvim-ts-autotag",
-        config = function()
-            require("nvim-ts-autotag").setup({})
-        end,
-    },
-
     -- CMP
     {
         "hrsh7th/nvim-cmp",
@@ -18,10 +10,12 @@ return {
             { "L3MON4D3/LuaSnip" },
             { "saadparwaiz1/cmp_luasnip" },
             { "hrsh7th/cmp-nvim-lsp-signature-help" },
+            { "onsails/lspkind.nvim" },
         },
         config = function()
             local cmp = require("cmp")
             local luasnip = require("luasnip")
+            local lspkind = require("lspkind")
 
             require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -38,17 +32,18 @@ return {
                 },
                 sources = {
                     { name = "nvim_lsp" },
+                    { name = "luasnip" },
                     { name = "buffer" },
                     { name = "path" },
-                    { name = "luasnip" },
+                },
+                formatting = {
+                    format = lspkind.cmp_format({
+                        maxwidth = 50,
+                        ellipsis_char = "...",
+                    }),
                 },
             })
         end,
-    },
-
-    -- comments
-    {
-        "tpope/vim-commentary",
     },
 
     -- conform
@@ -219,36 +214,6 @@ return {
         end,
     },
 
-    -- neogen
-    {
-        "danymat/neogen",
-        dependencies = {
-            { "nvim-treesitter/nvim-treesitter" },
-        },
-        keys = {
-            {
-                "<Leader>gd",
-                ":lua require('neogen').generate({ type = 'func' })<CR>",
-                mode = "n",
-                desc = "Generate docblock",
-                { noremap = true, silent = true }
-            },
-        },
-        config = function()
-            require('neogen').setup({
-                enabled = true,
-                languages = {
-                    php = {
-                        template = {
-                            annotation_convention = "phpdoc",
-                            types = true,
-                        },
-                    },
-                },
-            })
-        end,
-    },
-
     -- null ls
     {
         "jose-elias-alvarez/null-ls.nvim",
@@ -266,29 +231,6 @@ return {
                 },
             })
         end,
-    },
-
-    -- pairs
-    {
-        "echasnovski/mini.pairs",
-        config = function()
-            require("mini.pairs").setup({
-                mappings = {
-                    ["'"] = { insert = "'", delete = "'" },
-                    ['"'] = { insert = '"', delete = '"' },
-                    ["("] = { insert = "(", delete = ")" },
-                    ["{"] = { insert = "{", delete = "}" },
-                    ["["] = { insert = "[", delete = "]" },
-                },
-                ignore_blank_line = true,
-                enable = true,
-            })
-        end,
-    },
-
-    -- surround
-    {
-        "tpope/vim-surround",
     },
 
     -- treesitter

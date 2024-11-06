@@ -28,7 +28,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- Clipboard
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard:append("unnamedplus")
 
 -- Shorter messages
 vim.opt.shortmess:append("c")
@@ -39,6 +39,7 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.smartindent = true
+vim.opt.backspace = "indent,eol,start"
 
 -- Fillchars
 vim.opt.fillchars = {
@@ -51,6 +52,10 @@ vim.opt.fillchars = {
     foldsep = "│",
     foldclose = "▸"
 }
+
+-- Search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 vim.cmd([[highlight clear LineNr]])
 vim.cmd([[highlight clear SignColumn]])
