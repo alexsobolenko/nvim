@@ -3,19 +3,21 @@
 1. Install `composer`
 2. Install `nodejs`
 3. Install following npm packages globally:
-    * `tree-sitter-cli`
-    * `intelephense`
     * `@volar/server`
-    * `vscode-langservers-extracted`
+    * `@vue/language-server`
     * `dockerfile-language-server-nodejs`
+    * `intelephense`
+    * `jsregexp`
+    * `tree-sitter-cli`
+    * `twiggy-language-server`
     * `typescript-language-server`
     * `typescript`
+    * `vls`
+    * `vscode-langservers-extracted`
     * `yaml-language-server`
-    * `jsregexp`
 4. Install `lazygit` to use `lazygit` plugin
 
 # TODO
 
 1. Generate phpdocs
-2. Twig support
-3. Fix PHP analyse
+2. Fix PHP analyse

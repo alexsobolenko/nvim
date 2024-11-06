@@ -57,5 +57,10 @@ vim.opt.fillchars = {
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+for type, icon in pairs({ Error = " ", Warn = " ", Info = " ", Hint = " " }) do
+    hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl })
+end
+
 vim.cmd([[highlight clear LineNr]])
 vim.cmd([[highlight clear SignColumn]])
