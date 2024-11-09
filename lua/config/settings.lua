@@ -1,5 +1,8 @@
 vim.cmd("syntax on")
 
+vim.o.title = true
+vim.o.titlestring = "neovim - %{fnamemodify(getcwd(), ':t')}"
+
 vim.wo.number = true
 vim.wo.relativenumber = true
 
