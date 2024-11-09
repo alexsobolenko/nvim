@@ -78,32 +78,21 @@ return {
         },
         config = function()
             local function get_php_version_from_composer()
-                local composer_path = vim.fn.getcwd() .. "/composer.json"
-                if vim.fn.filereadable(composer_path) == 0 then
+                local file = io.open("composer.json", "r")
+                if not file then
                     return nil
                 end
 
-                local composer_data = vim.fn.json_decode(vim.fn.readfile(composer_path))
-                if composer_data.config and composer_data.config.platform and composer_data.config.platform.php then
-                    return composer_data.config.platform.php
-                elseif composer_data.require and composer_data.require.php then
-                    return composer_data.require.php:match("^(%d+%.%d+)")
-                end
+                local content = file:read("*a")
+                file:close()
 
-                return nil
+                return content:match('"php"%s*:%s*"[><=%^~]*%s*(%d+%.%d+)')
             end
-
 
             local lspconfig = require("lspconfig")
             local lspkind = require("lspkind")
             local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
             local capabilities = cmp_nvim_lsp.default_capabilities()
-
-            lspkind.init({
-                mode = "symbol",
-            })
-
             local k = vim.keymap
 
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -249,6 +238,10 @@ return {
             lspconfig.yamlls.setup({
                 capabilities = capabilities,
             })
+
+            lspkind.init({
+                mode = "symbol",
+            })
         end,
     },
 
@@ -310,24 +303,33 @@ return {
     {
         "jose-elias-alvarez/null-ls.nvim",
         config = function()
-            local function has_phpcs_config()
-                local project_root = vim.fn.getcwd()
-                local phpcs_config_path = project_root .. "/phpcs.xml"
-
-                return vim.fn.filereadable(phpcs_config_path) == 1
-            end
-
             local null_ls = require("null-ls")
             local utils = require("null-ls.utils")
             null_ls.setup({
                 root_dir = utils.root_pattern("composer.json", "package.json", "Makefile", ".git"),
-                diagnostics_format = "#{m} (#{c}) [#{s}]",
                 sources = {
-                    has_phpcs_config() and null_ls.builtins.diagnostics.phpcs.with({
+                    null_ls.builtins.diagnostics.phpcs.with({
                         command = "vendor/bin/phpcs",
                         method = null_ls.methods.DIAGNOSTICS,
-                    }) or nil,
+                        diagnostics_format = "[phpcs] #{m} (#{c})",
+                        condition = function(utils)
+                            return utils.root_has_file("phpcs.xml")
+                        end,
+                    }),
+                    null_ls.builtins.diagnostics.phpstan.with({
+                        command = "vendor/bin/phpstan",
+                        args = { "analyze" },
+                        diagnostics_format = "[phpstan] #{m} (#{c})",
+                        condition = function(utils)
+                            return utils.root_has_file("phpstan.neon")
+                        end,
+                    }),
                 },
+                on_attach = function(client)
+                    if client.server_capabilities.documentFormattingProvider then
+                        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })")
+                    end
+                end,
             })
         end,
     },

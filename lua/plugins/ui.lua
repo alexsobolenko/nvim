@@ -3,10 +3,31 @@ return {
     {
         "goolord/alpha-nvim",
         event = { "VimEnter" },
+        dependencies = {
+            { "nvim-tree/nvim-web-devicons" },
+            { "echasnovski/mini.icons", version = "*" },
+            { "nvim-lua/plenary.nvim" },
+        },
         config = function()
             local alpha = require("alpha")
-
             local dashboard = require("alpha.themes.dashboard")
+
+            local info = function()
+                local plugins = #vim.tbl_keys(require("lazy").plugins())
+                local v = vim.version()
+                local platform = vim.fn.has("win32") == 1 and "" or ""
+
+                return string.format(
+                    "󰂖 %d  %s %d.%d.%d  %s",
+                    plugins,
+                    platform,
+                    v.major,
+                    v.minor,
+                    v.patch,
+                    os.date(" %d.%m.%Y")
+                )
+            end
+
             dashboard.section.header.val = {
                 "", "", "", "", "", "",
                 "ooooo      ooo oooooooooooo   .oooooo.   oooooo     oooo ooooo ooo        ooooo",
@@ -19,12 +40,15 @@ return {
                 "", "", "", "", "",
             }
             dashboard.section.buttons.val = {
-                dashboard.button("e", "󰙅     Open tree", ":Neotree float<CR>"),
-                dashboard.button("f", "󰈞     Find files", ":Telescope find_files<CR>"),
-                dashboard.button("w", "     Find text", ":Telescope live_grep<CR>"),
-                dashboard.button("l", "     Git Braches", ":Telescope git_branches<CR>"),
-                dashboard.button("b", "     Lazy", ":Lazy<CR>"),
-                dashboard.button("q", "󰈆     Quit", ":q<CR>"),
+                dashboard.button("e", "󰙅   Open tree", ":Neotree float<CR>"),
+                dashboard.button("f", "󰈞   Find files", ":Telescope find_files<CR>"),
+                dashboard.button("w", "   Find text", ":Telescope live_grep<CR>"),
+                dashboard.button("b", "   Git Braches", ":Telescope git_branches<CR>"),
+                dashboard.button("l", "   Lazy", ":Lazy<CR>"),
+                dashboard.button("q", "󰈆   Quit", ":q<CR>"),
+            }
+            dashboard.section.footer.val = {
+                info(),
             }
 
             alpha.setup(dashboard.opts)
@@ -121,20 +145,6 @@ return {
                     desc = "Go to buffer " .. i,
                 })
             end
-        end,
-    },
-
-    -- glow
-    {
-        "ellisonleao/glow.nvim",
-        keys = {
-            { "<leader>mp", ":Glow<CR>", mode = "n", desc ="Markdown Preview" },
-        },
-        config = function()
-            require("glow").setup({
-                style = "dark",
-                border = "rounded",
-            })
         end,
     },
 

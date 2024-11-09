@@ -7,7 +7,6 @@
     * `@vue/language-server`
     * `dockerfile-language-server-nodejs`
     * `intelephense`
-    * `jsregexp`
     * `tree-sitter-cli`
     * `twiggy-language-server`
     * `typescript-language-server`
@@ -20,4 +19,5 @@
 # TODO
 
 1. Generate phpdocs
-2. Fix PHP analyse
+2. Vue better support
+3. Ruby?
