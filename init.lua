@@ -1,5 +1,6 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+-- if not vim.loop.fs_stat(lazypath) then
+if vim.fn.isdirectory(lazypath) == 0 then
     local out = vim.fn.system({
         "git",
         "clone",
@@ -10,8 +11,14 @@ if not vim.loop.fs_stat(lazypath) then
     })
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
-            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out, "WarningMsg" },
+            {
+                "Failed to clone lazy.nvim:\n",
+                "ErrorMsg",
+            },
+            {
+                out,
+                "WarningMsg",
+            },
             { "\nPress any key to exit..." },
         }, true, {})
         vim.fn.getchar()
@@ -27,7 +34,13 @@ require("config.mappings")
 
 require("lazy").setup({
     spec = {
-        { import = "plugins" },
+        { import = "plugins.code" },
+        { import = "plugins.editor" },
+        { import = "plugins.git" },
+        { import = "plugins.lang.php" },
+        { import = "plugins.theme" },
+        { import = "plugins.tools" },
+        { import = "plugins.ui" },
     },
     defaults = {
         lazy = false,

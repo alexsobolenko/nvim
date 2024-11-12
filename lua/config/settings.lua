@@ -61,8 +61,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 for type, icon in pairs({ Error = " ", Warn = " ", Info = " ", Hint = " " }) do
-    hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl })
+    local sign = "DiagnosticSign" .. type
+    vim.fn.sign_define(sign, { text = icon, texthl = sign })
 end
 
 vim.cmd([[highlight clear LineNr]])
