@@ -1,3 +1,5 @@
+-- tab navigations for buffers
+
 return {
     "akinsho/bufferline.nvim",
     dependencies = {
@@ -62,6 +64,7 @@ return {
             },
         })
 
+        -- mappings
         local k = vim.keymap
         local opts = { noremap = true, silent = true }
 
@@ -72,7 +75,7 @@ return {
         k.set("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
 
         opts.desc = "Close buffer"
-        k.set("n", "<leader>bc", ":bdelete<CR>", opts)
+        k.set("n", "<leader>bc", ":bd!<CR>", opts)
 
         for i = 1, 9 do
             opts.desc = "Go to buffer " .. i

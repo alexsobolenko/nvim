@@ -1,12 +1,21 @@
+-- language server protocol
+
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
+        { "hrsh7th/nvim-cmp" },
         { "williamboman/mason.nvim" },
         { "onsails/lspkind-nvim" },
         { "hrsh7th/cmp-nvim-lsp" },
         { "ray-x/lsp_signature.nvim" },
     },
     config = function()
+        local lspconfig = require("lspconfig")
+        local lspkind = require("lspkind")
+        local cmp_nvim_lsp = require("cmp_nvim_lsp")
+        local capabilities = cmp_nvim_lsp.default_capabilities()
+        local k = vim.keymap
+
         local function get_php_version_from_composer()
             local file = io.open("composer.json", "r")
             if not file then
@@ -19,11 +28,9 @@ return {
             return content:match('"php"%s*:%s*"[><=%^~]*%s*(%d+%.%d+)')
         end
 
-        local lspconfig = require("lspconfig")
-        local lspkind = require("lspkind")
-        local cmp_nvim_lsp = require("cmp_nvim_lsp")
-        local capabilities = cmp_nvim_lsp.default_capabilities()
-        local k = vim.keymap
+        lspkind.init({
+            mode = "symbol",
+        })
 
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -205,10 +212,6 @@ return {
 
         lspconfig.yamlls.setup({
             capabilities = capabilities,
-        })
-
-        lspkind.init({
-            mode = "symbol",
         })
     end,
 }

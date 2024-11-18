@@ -1,3 +1,5 @@
+-- code autocomplete
+
 return {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -23,7 +25,13 @@ return {
                     luasnip.lsp_expand(args.body)
                 end,
             },
+            window = {
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered(),
+            },
             mapping = {
+                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 ["<Tab>"] = cmp.mapping.select_next_item(),
                 ["<S-Tab>"] = cmp.mapping.select_prev_item(),
                 ["<CR>"] = cmp.mapping.confirm({ select = true }),

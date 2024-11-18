@@ -1,3 +1,5 @@
+-- IDE status line
+
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -6,18 +8,18 @@ return {
     config = function()
         local monokai_theme = {
             normal = {
-                a = { fg = "#272822", bg = "#f92672", gui = "bold" },
-                b = { fg = "#f8f8f2", bg = "#49483e" },
-                c = { fg = "#f8f8f2", bg = "#272822" },
+                a = { fg = "#222327", bg = "#F39660", gui = "bold" },
+                b = { fg = "#E2E2E3", bg = "#55393D" },
+                c = { fg = "#E2E2E3", bg = "#222327" },
             },
-            insert = { a = { fg = "#272822", bg = "#a6e22e", gui = "bold" } },
-            visual = { a = { fg = "#272822", bg = "#66d9ef", gui = "bold" } },
-            replace = { a = { fg = "#272822", bg = "#fd971f", gui = "bold" } },
-            command = { a = { fg = "#272822", bg = "#ae81ff", gui = "bold" } },
+            insert = { a = { fg = "#222327", bg = "#A7DF78", gui = "bold" } },
+            visual = { a = { fg = "#222327", bg = "#85D3F2", gui = "bold" } },
+            replace = { a = { fg = "#222327", bg = "#FF6077", gui = "bold" } },
+            command = { a = { fg = "#222327", bg = "#B39DF3", gui = "bold" } },
             inactive = {
-                a = { fg = "#f8f8f2", bg = "#49483e", gui = "bold" },
-                b = { fg = "#f8f8f2", bg = "#272822" },
-                c = { fg = "#f8f8f2", bg = "#272822" },
+                a = { fg = "#E2E2E3", bg = "#55393D", gui = "bold" },
+                b = { fg = "#E2E2E3", bg = "#222327" },
+                c = { fg = "#E2E2E3", bg = "#222327" },
             },
         }
 

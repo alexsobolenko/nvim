@@ -1,16 +1,9 @@
+-- create annotations
+
 return {
     "danymat/neogen",
     dependencies = {
         { "nvim-treesitter/nvim-treesitter" },
-    },
-    keys = {
-        {
-            "<Leader>gd",
-            ":lua require('neogen').generate({ type = 'func' })<CR>",
-            mode = "n",
-            desc = "Generate docblock",
-            { noremap = true, silent = true },
-        },
     },
     config = function()
         require("neogen").setup({
@@ -24,5 +17,12 @@ return {
                 },
             },
         })
+
+        -- mappings
+        local k = vim.keymap
+        local opts = { noremap = true, silent = true }
+
+        opts.desc = "Generate docblock"
+        k.set("n", "<leader>gf", ":lua require('neogen').generate({ type = 'func' })<CR>", opts)
     end,
 }

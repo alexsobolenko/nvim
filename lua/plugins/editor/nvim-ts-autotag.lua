@@ -1,3 +1,5 @@
+-- tags auto insert
+
 return {
     "windwp/nvim-ts-autotag",
     config = function()

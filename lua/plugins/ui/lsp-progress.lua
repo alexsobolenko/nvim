@@ -1,3 +1,5 @@
+-- performant lsp progress statuse
+
 return {
     "linrongbin16/lsp-progress.nvim",
     config = function()

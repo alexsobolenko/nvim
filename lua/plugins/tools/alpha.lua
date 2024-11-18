@@ -3,7 +3,7 @@ return {
     event = { "VimEnter" },
     dependencies = {
         { "nvim-tree/nvim-web-devicons" },
-        { "echasnovski/mini.icons",     version = "*" },
+        { "echasnovski/mini.icons" },
         { "nvim-lua/plenary.nvim" },
     },
     config = function()
@@ -11,25 +11,15 @@ return {
         local dashboard = require("alpha.themes.dashboard")
 
         local info = function()
+            local status = "󰂖 %d  %s %d.%d.%d  %s"
             local plugins = #vim.tbl_keys(require("lazy").plugins())
             local v = vim.version()
             local platform = vim.fn.has("win32") == 1 and "" or ""
 
-            return string.format(
-                "󰂖 %d  %s %d.%d.%d  %s",
-                plugins,
-                platform,
-                v.major,
-                v.minor,
-                v.patch,
-                os.date(" %d.%m.%Y")
-            )
+            return string.format(status, plugins, platform, v.major, v.minor, v.patch, os.date(" %d.%m.%Y"))
         end
 
         dashboard.section.header.val = {
-            "",
-            "",
-            "",
             "",
             "",
             "",
@@ -43,16 +33,15 @@ return {
             "",
             "",
             "",
-            "",
-            "",
         }
         dashboard.section.buttons.val = {
-            dashboard.button("e", "󰙅    Open tree", ":Neotree float<CR>"),
-            dashboard.button("f", "󰈞    Find files", ":Telescope find_files<CR>"),
-            dashboard.button("w", "    Find text", ":Telescope live_grep<CR>"),
-            dashboard.button("b", "    Git Braches", ":Telescope git_branches<CR>"),
-            dashboard.button("l", "    Lazy", ":Lazy<CR>"),
-            dashboard.button("q", "󰈆    Quit", ":q<CR>"),
+            dashboard.button("e", "󰙅  > Open tree", ":Neotree float<CR>"),
+            dashboard.button("f", "󰈞  > Find files", ":Telescope find_files<CR>"),
+            dashboard.button("w", "  > Find text", ":Telescope live_grep<CR>"),
+            dashboard.button("b", "  > Git Braches", ":Telescope git_branches<CR>"),
+            dashboard.button("l", "  > Lazy", ":Lazy<CR>"),
+            dashboard.button("m", "  > Mason", ":Mason<CR>"),
+            dashboard.button("q", "󰈆  > Quit", ":q<CR>"),
         }
         dashboard.section.footer.val = {
             info(),

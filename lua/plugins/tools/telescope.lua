@@ -1,78 +1,10 @@
+-- grep git, filesystem, code
+
 return {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
     dependencies = {
         { "nvim-lua/plenary.nvim" },
     },
-    keys = function()
-        local builtin = require("telescope.builtin")
-        local opts = { noremap = true, silent = true }
-
-        return {
-            {
-                "<leader>ff",
-                builtin.find_files,
-                mode = "n",
-                desc = "Find files",
-            },
-            {
-                "<leader>fw",
-                builtin.live_grep,
-                mode = "n",
-                desc = "Find words",
-            },
-            {
-                "<leader>fb",
-                builtin.buffers,
-                mode = "n",
-                desc = "Find buffers",
-            },
-            {
-                "<leader>fh",
-                builtin.help_tags,
-                mode = "n",
-                desc = "Find help",
-            },
-            {
-                "<leader>gb",
-                builtin.git_branches,
-                mode = "n",
-                desc = "Git branches",
-            },
-            {
-                "<leader>gc",
-                builtin.git_commits,
-                mode = "n",
-                desc = "Git commits",
-            },
-            {
-                "<leader>gs",
-                builtin.git_status,
-                mode = "n",
-                desc = "Git status",
-            },
-            {
-                "<leader>ls",
-                builtin.lsp_document_symbols,
-                mode = "n",
-                desc = "LSP document symbols",
-            },
-            {
-                "gr",
-                builtin.lsp_references,
-                mode = "n",
-                desc = "Go to references",
-                opts,
-            },
-            {
-                "gd",
-                builtin.lsp_definitions,
-                mode = "n",
-                desc = "Go to definition",
-                opts,
-            },
-        }
-    end,
     config = function()
         require("telescope").setup({
             defaults = {
@@ -88,5 +20,40 @@ return {
                 },
             },
         })
+
+        -- mappings
+        local builtin = require("telescope.builtin")
+        local k = vim.keymap
+        local opts = { noremap = true, silent = true }
+
+        opts.desc = "Find files"
+        k.set("n", "<leader>ff", builtin.find_files, opts)
+
+        opts.desc = "Find words"
+        k.set("n", "<leader>fw", builtin.live_grep, opts)
+
+        opts.desc = "Find buffers"
+        k.set("n", "<leader>fb", builtin.buffers, opts)
+
+        opts.desc = "Find help"
+        k.set("n", "<leader>fh", builtin.help_tags, opts)
+
+        opts.desc = "Git branches"
+        k.set("n", "<leader>gb", builtin.git_branches, opts)
+
+        opts.desc = "Git commits"
+        k.set("n", "<leader>gc", builtin.git_commits, opts)
+
+        opts.desc = "Git status"
+        k.set("n", "<leader>gs", builtin.git_status, opts)
+
+        opts.desc = "LSP document symbols"
+        k.set("n", "<leader>ls", builtin.lsp_document_symbols, opts)
+
+        opts.desc = "Go to references"
+        k.set("n", "gr", builtin.lsp_references, opts)
+
+        opts.desc = "Go to definition"
+        k.set("n", "gd", builtin.lsp_definitions, opts)
     end,
 }

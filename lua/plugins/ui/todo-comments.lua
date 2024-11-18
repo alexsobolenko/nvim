@@ -1,44 +1,10 @@
+-- highlight and search for todo comments
+
 return {
     "folke/todo-comments.nvim",
-    cmd = {
-        "TodoTrouble",
-        "TodoTelescope",
+    dependencies = {
+        { "nvim-lua/plenary.nvim" },
     },
-    event = "BufRead",
-    keys = {
-        {
-            "]t",
-            function()
-                require("todo-comments").jump_next()
-            end,
-            desc = "Next Todo Comment",
-        },
-        {
-            "[t",
-            function()
-                require("todo-comments").jump_prev()
-            end,
-            desc = "Previous Todo Comment",
-        },
-        {
-            "<leader>xt",
-            "<cmd>Trouble todo toggle<CR>",
-            desc = "Todo (Trouble)",
-        },
-        {
-            "<leader>xT",
-            "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<CR>",
-            desc = "Todo/Fix/Fixme (Trouble)",
-        },
-        {
-            "<leader>st",
-            "<cmd>TodoTelescope<CR>",
-            desc = "Todo",
-        },
-        {
-            "<leader>sT",
-            "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<CR>",
-            desc = "Todo/Fix/Fixme",
-        },
-    },
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    event = { "BufRead" },
 }

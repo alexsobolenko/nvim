@@ -1,3 +1,5 @@
+-- package manager for LSP, DAP, linters and formatters
+
 return {
     "williamboman/mason.nvim",
     dependencies = {
@@ -11,12 +13,9 @@ return {
             "css-lsp",
             "docker-compose-language-service",
             "dockerfile-language-server",
-            "erb-formatter",
-            "erb-lint",
             "eslint",
             "eslint-lsp",
             "html-lsp",
-            "htmlbeautifier",
             "intelephense",
             "lua-language-server",
             "php-cs-fixer",
@@ -24,6 +23,7 @@ return {
             "phpstan",
             "prettierd",
             "pretty-php",
+            "selene",
             "shfmt",
             "stylelint",
             "stylelint-lsp",

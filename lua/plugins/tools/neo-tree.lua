@@ -1,3 +1,5 @@
+-- navigation tree
+
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
@@ -6,20 +8,6 @@ return {
         { "nvim-lua/plenary.nvim" },
         { "nvim-tree/nvim-web-devicons" },
         { "MunifTanjim/nui.nvim" },
-    },
-    keys = {
-        {
-            "<leader>E",
-            ":Neotree float reveal<CR>",
-            mode = "n",
-            desc = "Neotree float",
-        },
-        {
-            "<leader>e",
-            ":Neotree left reveal<CR>",
-            mode = "n",
-            desc = "Neotree left panel",
-        },
     },
     config = function()
         require("neo-tree").setup({
@@ -36,13 +24,19 @@ return {
                     visible = true,
                     hide_dotfiles = false,
                     hide_gitignored = false,
-                    hide_by_name = {
-                        ".git",
-                        ".idea",
-                        ".vscode",
-                    },
+                    hide_by_name = { ".git", ".idea", ".vscode" },
                 },
             },
         })
+
+        -- mappings
+        local k = vim.keymap
+        local opts = { noremap = true, silent = true }
+
+        opts.desc = "Neotree float"
+        k.set("n", "<leader>e", ":Neotree float<CR>", opts)
+
+        opts.desc = "Neotree left panel"
+        k.set("n", "<leader>E", ":Neotree left panel<CR>", opts)
     end,
 }

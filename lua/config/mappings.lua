@@ -1,6 +1,5 @@
-vim.g.mapleader = " "
-
 local k = vim.keymap
+vim.g.mapleader = " "
 
 k.set("n", "<c-k>", ":wincmd k<CR>", { desc = "Move up" })
 k.set("n", "<c-j>", ":wincmd j<CR>", { desc = "Move down" })

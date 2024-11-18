@@ -1,38 +1,25 @@
+-- diagnosting and formatting
+
 return {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     config = function()
         local null_ls = require("null-ls")
         null_ls.setup({
             root_dir = require("null-ls.utils").root_pattern("composer.json", "package.json", "Makefile", ".git"),
+            diagnostics_format = "#{m} (#{c}) [#{s}]",
             sources = {
-                -- formatting
-                null_ls.builtins.formatting.eslint,
-                null_ls.builtins.formatting.prettier,
                 null_ls.builtins.formatting.stylua,
-                -- diagnostics
                 null_ls.builtins.diagnostics.eslint,
                 null_ls.builtins.diagnostics.phpcs.with({
-                    command = "vendor/bin/phpcs",
-                    method = null_ls.methods.DIAGNOSTICS,
-                    diagnostics_format = "[phpcs] #{m} (#{c})",
-                    diagnostics_postprocess = function(diagnostic)
-                        if diagnostic.message:match("Heredoc") then
-                            diagnostic.severity = vim.diagnostic.severity.HINT
-                        end
-                    end,
+                    prefer_local = "vendor/bin",
+                    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
                     condition = function(utils)
                         return utils.root_has_file("phpcs.xml")
                     end,
                 }),
                 null_ls.builtins.diagnostics.phpstan.with({
-                    command = "vendor/bin/phpstan",
-                    args = { "analyze" },
-                    diagnostics_format = "[phpstan] #{m} (#{c})",
-                    diagnostics_postprocess = function(diagnostic)
-                        if diagnostic.message:match("Heredoc") then
-                            diagnostic.severity = vim.diagnostic.severity.HINT
-                        end
-                    end,
+                    prefer_local = "vendor/bin",
+                    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
                     condition = function(utils)
                         return utils.root_has_file("phpstan.neon")
                     end,

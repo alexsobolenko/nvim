@@ -1,14 +1,23 @@
+-- notifications
+
 return {
     "rcarriga/nvim-notify",
     keys = {
         {
-            "<leader>un",
-            "<cmd>lua vim.notify('', vim.log.levels.DEBUG, { title = 'Dismiss', timeout = 0 })<CR>",
-            desc = "Dismiss All Notifications",
+            "<leader>nd",
+            ":lua vim.notify('', vim.log.levels.DEBUG, { title = 'Dismiss', timeout = 0 })<CR>",
+            desc = "Dismiss all notifications",
+        },
+        {
+            "<leader>nh",
+            ":Telescope notify<CR>",
+            desc = "Notifications history",
         },
     },
     opts = {
-        stages = "static",
+        stages = "fade_in_slide_out",
+        animate = true,
+        render = "compact",
         timeout = 3000,
         max_height = function()
             return math.floor(vim.o.lines * 0.75)

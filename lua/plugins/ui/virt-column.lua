@@ -1,3 +1,5 @@
+-- display a character as the colorcolumn
+
 return {
     "lukas-reineke/virt-column.nvim",
     config = function()

@@ -1,3 +1,5 @@
+-- command line
+
 return {
     "folke/noice.nvim",
     event = "VeryLazy",

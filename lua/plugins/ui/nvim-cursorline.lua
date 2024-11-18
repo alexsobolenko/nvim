@@ -1,3 +1,5 @@
+-- highlight words and lines on the cursor
+
 return {
     "yamatsum/nvim-cursorline",
     config = function()
