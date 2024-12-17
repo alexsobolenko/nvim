@@ -38,7 +38,6 @@ return {
             dashboard.button("e", "󰙅  > Open tree", ":Neotree float<CR>"),
             dashboard.button("f", "󰈞  > Find files", ":Telescope find_files<CR>"),
             dashboard.button("w", "  > Find text", ":Telescope live_grep<CR>"),
-            dashboard.button("b", "  > Git Braches", ":Telescope git_branches<CR>"),
             dashboard.button("l", "  > Lazy", ":Lazy<CR>"),
             dashboard.button("m", "  > Mason", ":Mason<CR>"),
             dashboard.button("q", "󰈆  > Quit", ":q<CR>"),
