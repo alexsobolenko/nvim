@@ -8,29 +8,16 @@ return {
         { "onsails/lspkind-nvim" },
         { "hrsh7th/cmp-nvim-lsp" },
         { "ray-x/lsp_signature.nvim" },
+        { "nvim-lua/plenary.nvim" },
     },
     config = function()
+        local utils = require("extras.utils")
         local lspconfig = require("lspconfig")
-        local lspkind = require("lspkind")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
         local capabilities = cmp_nvim_lsp.default_capabilities()
         local k = vim.keymap
 
-        local function get_php_version_from_composer()
-            local file = io.open("composer.json", "r")
-            if not file then
-                return nil
-            end
-
-            local content = file:read("*a")
-            file:close()
-
-            return content:match('"php"%s*:%s*"[><=%^~]*%s*(%d+%.%d+)')
-        end
-
-        lspkind.init({
-            mode = "symbol",
-        })
+        require("lspkind").init({ mode = "symbol" })
 
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -41,37 +28,16 @@ return {
                 k.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
 
                 opts.desc = "Go to declaration"
-                k.set("n", "gD", function()
-                    local clients = vim.lsp_get_clients({ bufnr = 0 })
-                    if #clients > 0 and clients[1].server_capabilities.declarationProvider then
-                        vim.lsp.buf.declaration()
-                    else
-                        vim.lsp.buf.definition()
-                    end
-                end, opts)
+                k.set("n", "gD", vim.lsp.buf.declaration, opts)
 
                 opts.desc = "Show LSP definitions"
                 k.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
                 opts.desc = "Show LSP implementations"
-                k.set("n", "gi", function()
-                    local clients = vim.lsp_get_clients({ bufnr = 0 })
-                    if #clients > 0 and clients[1].server_capabilities.implementationProvider then
-                        vim.cmd("Telescope lsp_implementations")
-                    else
-                        vim.cmd("Telescope lsp_references")
-                    end
-                end, opts)
+                k.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
                 opts.desc = "Show LSP type definitions"
-                k.set("n", "gt", function()
-                    local clients = vim.lsp_get_clients({ bufnr = 0 })
-                    if #clients > 0 and clients[1].server_capabilities.typeDefinitionProvider then
-                        vim.cmd("Telescope lsp_type_definitions")
-                    else
-                        vim.cmd("Telescope lsp_definitions")
-                    end
-                end, opts)
+                k.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
                 opts.desc = "See available code actions"
                 k.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
@@ -99,119 +65,12 @@ return {
             end,
         })
 
-        lspconfig.cssls.setup({
+        local base_config = {
             capabilities = capabilities,
-        })
-
-        lspconfig.dockerls.setup({
-            capabilities = capabilities,
-        })
-
-        lspconfig.html.setup({
-            capabilities = capabilities,
-        })
-
-        lspconfig.intelephense.setup({
-            capabilities = capabilities,
-            flags = {
-                debounce_text_changes = 150,
-            },
-            filetypes = { "php", "twig" },
-            settings = {
-                intelephense = {
-                    environment = {
-                        phpVersion = get_php_version_from_composer() or "7.4",
-                    },
-                    files = {
-                        maxSize = 5000000,
-                    },
-                    diagnostics = {
-                        enable = true,
-                    },
-                    stubs = {
-                        "Core",
-                        "apache",
-                        "bcmath",
-                        "bz2",
-                        "calendar",
-                        "com",
-                        "ctype",
-                        "curl",
-                        "date",
-                        "dom",
-                        "exif",
-                        "fileinfo",
-                        "filter",
-                        "gd",
-                        "gettext",
-                        "hash",
-                        "iconv",
-                        "intl",
-                        "json",
-                        "libxml",
-                        "mbstring",
-                        "mysqli",
-                        "mysqlnd",
-                        "openssl",
-                        "pcntl",
-                        "pcre",
-                        "PDO",
-                        "pdo_mysql",
-                        "Phar",
-                        "readline",
-                        "redis",
-                        "Reflection",
-                        "session",
-                        "SimpleXML",
-                        "sockets",
-                        "sodium",
-                        "SOAP",
-                        "sqlite3",
-                        "standard",
-                        "tokenizer",
-                        "xml",
-                        "xmlreader",
-                        "xmlwriter",
-                        "xsl",
-                        "Zend OPcache",
-                        "zip",
-                        "zlib",
-                    },
-                },
-            },
-        })
-
-        lspconfig.lua_ls.setup({
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim" },
-                    },
-                    workspace = {
-                        library = vim.api.nvim_get_runtime_file("", true),
-                    },
-                    telemetry = {
-                        enable = false,
-                    },
-                },
-            },
-        })
-
-        lspconfig.ts_ls.setup({
-            capabilities = capabilities,
-        })
-
-        lspconfig.twiggy_language_server.setup({
-            capabilities = capabilities,
-        })
-
-        lspconfig.vuels.setup({
-            capabilities = capabilities,
-        })
-
-        lspconfig.yamlls.setup({
-            capabilities = capabilities,
-        })
+        }
+        local lspconfig_dir = vim.fn.stdpath("config") .. "/lua/extras/lspconfig"
+        for lsp_name, extra_config in pairs(utils.require_files_to_table(lspconfig_dir, true)) do
+            lspconfig[lsp_name].setup(vim.tbl_extend("force", base_config, extra_config))
+        end
     end,
 }

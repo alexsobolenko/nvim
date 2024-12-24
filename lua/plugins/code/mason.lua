@@ -9,40 +9,16 @@ return {
     },
     build = ":MasonUpdate",
     config = function()
-        local ensure_installed = {
-            "css-lsp",
-            "docker-compose-language-service",
-            "dockerfile-language-server",
-            "eslint",
-            "eslint-lsp",
-            "html-lsp",
-            "intelephense",
-            "lua-language-server",
-            "phpcs",
-            "phpstan",
-            "stylelint",
-            "stylelint-lsp",
-            "stylua",
-            "ts-standard",
-            "twigcs",
-            "twiggy-language-server",
-            "typescript-language-server",
-            "vetur-vls",
-            "vue-language-server",
-        }
-
+        local m = require("extras.mason")
+        local icons = require("extras.icons")
         require("mason").setup({
             ui = {
-                icons = {
-                    package_installed = "✓",
-                    package_pending = "➜",
-                    package_uninstalled = "✗",
-                },
+                icons = icons.mason,
             },
         })
 
         require("mason-null-ls").setup({
-            ensure_installed = ensure_installed,
+            ensure_installed = m.ensure_installed,
             automatic_installation = true,
         })
     end,

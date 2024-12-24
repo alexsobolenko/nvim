@@ -24,6 +24,6 @@
 1. Better code formatting, index
 2. Generate phpdocs better
 3. Better php annotations
-4. Vue better support
-5. Ruby?
-6. Python?
+4. Ruby?
+5. Python?
+6. Golang?

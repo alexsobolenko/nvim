@@ -1,3 +1,5 @@
+local utils = require("extras.utils")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if vim.fn.isdirectory(lazypath) == 0 then
     local out = vim.fn.system({
@@ -25,16 +27,12 @@ require("config.settings")
 require("config.autocmds")
 require("config.mappings")
 
+local spec = {}
+table.insert(spec, utils.setup_theme())
+table.insert(spec, utils.get_lazy_import_plugins(vim.fn.stdpath("config") .. "/lua/plugins"))
+
 require("lazy").setup({
-    spec = {
-        { import = "plugins.code" },
-        { import = "plugins.editor" },
-        { import = "plugins.git" },
-        { import = "plugins.lang.php" },
-        { import = "plugins.theme" },
-        { import = "plugins.tools" },
-        { import = "plugins.ui" },
-    },
+    spec = spec,
     defaults = {
         lazy = false,
         version = false,

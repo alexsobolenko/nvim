@@ -10,20 +10,8 @@ return {
             sources = {
                 null_ls.builtins.formatting.stylua,
                 null_ls.builtins.diagnostics.eslint,
-                null_ls.builtins.diagnostics.phpcs.with({
-                    prefer_local = "vendor/bin",
-                    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-                    condition = function(utils)
-                        return utils.root_has_file("phpcs.xml")
-                    end,
-                }),
-                null_ls.builtins.diagnostics.phpstan.with({
-                    prefer_local = "vendor/bin",
-                    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-                    condition = function(utils)
-                        return utils.root_has_file("phpstan.neon")
-                    end,
-                }),
+                null_ls.builtins.diagnostics.phpcs.with(require("extras.null-ls.phpcs")),
+                null_ls.builtins.diagnostics.phpstan.with(require("extras.null-ls.phpstan")),
                 null_ls.builtins.diagnostics.yamllint,
             },
             on_attach = function(client)

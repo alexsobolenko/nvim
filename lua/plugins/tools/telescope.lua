@@ -6,11 +6,12 @@ return {
         { "nvim-lua/plenary.nvim" },
     },
     config = function()
+        local icons = require("extras.icons")
         require("telescope").setup({
             defaults = {
-                prompt_prefix = "> ",
-                selection_caret = "> ",
-                entry_prefix = "  ",
+                prompt_prefix = icons.telescope.prompt_prefix,
+                selection_caret = icons.telescope.selection_caret,
+                entry_prefix = icons.telescope.entry_prefix,
                 initial_mode = "insert",
                 layout_strategy = "horizontal",
                 layout_config = {

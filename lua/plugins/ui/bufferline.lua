@@ -6,12 +6,13 @@ return {
         { "nvim-tree/nvim-web-devicons" },
     },
     config = function()
+        local icons = require("extras.icons")
         require("bufferline").setup({
             options = {
                 close_command = "bdelete! %d",
                 right_mouse_command = "bdelete! %d",
                 left_mouse_command = "buffer %d",
-                buffer_close_icon = "",
+                buffer_close_icon = icons.bufferline.close,
                 numbers = "ordinal",
                 show_close_icons = true,
                 offsets = {
@@ -26,7 +27,7 @@ return {
                 mode = "buffers",
                 diagnostics = "nvim_lsp",
                 indicator = {
-                    icon = "  ",
+                    icon = icons.bufferline.diagnostics,
                     style = "icon",
                 },
                 shape = "rounded",

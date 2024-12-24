@@ -3,6 +3,7 @@
 return {
     "linrongbin16/lsp-progress.nvim",
     config = function()
+        local icons = require("extras.icons")
         require("lsp-progress").setup({
             display_components = {
                 "lsp_client_name",
@@ -26,7 +27,7 @@ return {
                 progress_enddelay = 300,
                 progress_debounced = 100,
             },
-            spinner_symbols = { "◜", "◠", "◝", "◞", "◡", "◟" },
+            spinner_symbols = icons.statusbar.lsp_progress,
         })
     end,
 }

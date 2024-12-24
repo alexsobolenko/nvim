@@ -6,70 +6,57 @@ return {
         { "nvim-tree/nvim-web-devicons" },
     },
     config = function()
-        local monokai_theme = {
-            normal = {
-                a = { fg = "#222327", bg = "#F39660", gui = "bold" },
-                b = { fg = "#E2E2E3", bg = "#55393D" },
-                c = { fg = "#E2E2E3", bg = "#222327" },
-            },
-            insert = { a = { fg = "#222327", bg = "#A7DF78", gui = "bold" } },
-            visual = { a = { fg = "#222327", bg = "#85D3F2", gui = "bold" } },
-            replace = { a = { fg = "#222327", bg = "#FF6077", gui = "bold" } },
-            command = { a = { fg = "#222327", bg = "#B39DF3", gui = "bold" } },
-            inactive = {
-                a = { fg = "#E2E2E3", bg = "#55393D", gui = "bold" },
-                b = { fg = "#E2E2E3", bg = "#222327" },
-                c = { fg = "#E2E2E3", bg = "#222327" },
-            },
-        }
-
+        local icons = require("extras.icons")
+        local lsp_progress = require("lsp-progress")
         require("lualine").setup({
             options = {
-                theme = monokai_theme,
-                component_separators = { left = "│", right = "│" },
-                section_separators = { left = "", right = "" },
                 icons_enabled = true,
+                theme = "auto",
+                component_separators = icons.statusbar.component_separators,
+                section_separators = icons.statusbar.section_separators,
+                disabled_filetypes = {
+                    "dashboard",
+                    "NvimTree",
+                    "Outline",
+                },
+                always_divide_middle = true,
             },
             sections = {
                 lualine_a = {
                     {
                         "mode",
-                        separator = { left = "" },
-                        right_padding = 2,
+                        separator = { left = icons.statusbar.section_separators.right },
+                        right_padding = 3,
                     },
                 },
                 lualine_b = {
-                    "fileformat",
-                    "filename",
-                    "branch",
-                    {
-                        "diff",
-                        symbols = { added = " ", modified = " ", removed = " " },
-                    },
+                    { "fileformat" },
+                    { "filename" },
+                    { "branch" },
+                    { "diff", symbols = icons.statusbar.git },
                 },
                 lualine_c = {
-                    function()
-                        return require("lsp-progress").progress()
-                    end,
+                    {
+                        function()
+                            return lsp_progress.progress()
+                        end,
+                    },
                 },
                 lualine_x = {},
                 lualine_y = {
                     {
                         "diagnostics",
                         sources = { "nvim_diagnostic" },
-                        symbols = { error = "✘ ", warn = "⚠ ", info = "ℹ " },
+                        symbols = icons.statusbar.diagnostics,
                     },
-                    {
-                        "o:encoding",
-                        fmt = string.upper,
-                    },
-                    "filetype",
-                    "progress",
+                    { "o:encoding", fmt = string.upper },
+                    { "filetype" },
+                    { "progress" },
                 },
                 lualine_z = {
                     {
                         "location",
-                        separator = { right = "" },
+                        separator = { right = icons.statusbar.section_separators.left },
                         left_padding = 2,
                     },
                 },
@@ -83,7 +70,7 @@ return {
                 lualine_z = { "location" },
             },
             tabline = {},
-            extensions = {},
+            extensions = { "fugitive", "nvim-tree", "quickfix" },
         })
     end,
 }
