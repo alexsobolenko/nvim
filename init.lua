@@ -13,7 +13,7 @@ if vim.fn.isdirectory(lazypath) == 0 then
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out, "WarningMsg" },
+            { out,                            "WarningMsg" },
             { "\nPress any key to exit..." },
         }, true, {})
         vim.fn.getchar()
@@ -26,13 +26,10 @@ vim.opt.rtp:prepend(lazypath)
 require("config.settings")
 require("config.autocmds")
 require("config.mappings")
-
-local spec = {}
-table.insert(spec, utils.setup_theme())
-table.insert(spec, utils.get_lazy_import_plugins(vim.fn.stdpath("config") .. "/lua/plugins"))
+utils.setup_theme()
 
 require("lazy").setup({
-    spec = spec,
+    spec = utils.get_lazy_import_plugins(vim.fn.stdpath("config") .. "/lua/plugins"),
     defaults = {
         lazy = false,
         version = false,

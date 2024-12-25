@@ -18,6 +18,22 @@ return {
         m_mason = "",
         m_quit = "󰈆",
     },
+    diagnostic_signs = {
+        error = " ",
+        warn = " ",
+        info = " ",
+        hint = " ",
+    },
+    fillchars = {
+        vert = "│",
+        fold = "⠀",
+        eob = " ",
+        diff = "⣿",
+        msgsep = "‾",
+        foldopen = "▾",
+        foldsep = "│",
+        foldclose = "▸",
+    },
     gitsigns = {
         add = "┃",
         change = "┃",

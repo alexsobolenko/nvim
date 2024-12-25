@@ -3,6 +3,8 @@
 return {
     "tomasiser/vim-code-dark",
     config = function()
-        vim.cmd.colorscheme("codedark")
+        if vim.g.nvim_theme == "vim-code-dark" then
+            vim.cmd.colorscheme("codedark")
+        end
     end,
 }

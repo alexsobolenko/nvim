@@ -1,4 +1,8 @@
+local icons = require("extras.icons")
+local utils = require("extras.utils")
+
 vim.cmd("syntax on")
+vim.g.nvim_theme = utils.setup_theme()
 
 vim.o.title = true
 vim.o.titlestring = "neovim - %{fnamemodify(getcwd(), ':t')}"
@@ -46,22 +50,19 @@ vim.opt.smartindent = true
 vim.opt.backspace = "indent,eol,start"
 
 -- Fillchars
-vim.opt.fillchars = {
-    vert = "│",
-    fold = "⠀",
-    eob = " ",
-    diff = "⣿",
-    msgsep = "‾",
-    foldopen = "▾",
-    foldsep = "│",
-    foldclose = "▸",
-}
+vim.opt.fillchars = icons.fillchars
 
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-for type, icon in pairs({ Error = " ", Warn = " ", Info = " ", Hint = " " }) do
+local signs = {
+    Error = icons.diagnostic_signs.error,
+    Warn = icons.diagnostic_signs.warn,
+    Info = icons.diagnostic_signs.info,
+    Hint = icons.diagnostic_signs.hint,
+}
+for type, icon in pairs(signs) do
     local sign = "DiagnosticSign" .. type
     vim.fn.sign_define(sign, { text = icon, texthl = sign })
 end

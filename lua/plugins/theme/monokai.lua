@@ -3,8 +3,8 @@
 return {
     "tanvirtin/monokai.nvim",
     config = function()
-        print("hello")
-
-        require("monokai").setup()
+        if vim.g.nvim_theme == "monokai" then
+            require("monokai").setup()
+        end
     end,
 }

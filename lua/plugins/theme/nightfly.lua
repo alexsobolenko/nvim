@@ -3,6 +3,8 @@
 return {
     "bluz71/vim-nightfly-colors",
     config = function()
-        vim.cmd([[colorscheme nightfly]])
+        if vim.g.nvim_theme == "gruvbox" then
+            vim.cmd([[colorscheme nightfly]])
+        end
     end,
 }

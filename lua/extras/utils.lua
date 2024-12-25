@@ -105,7 +105,7 @@ end
 -- load and setup theme
 function M.setup_theme()
     local config_path = vim.fn.stdpath("config")
-    local handle = vim.loop.fs_scandir(config_path .. "/lua/config/theme")
+    local handle = vim.loop.fs_scandir(config_path .. "/lua/plugins/theme")
     local theme_file = config_path .. "/.theme"
     local default_theme = "monokai"
 
@@ -133,10 +133,7 @@ function M.setup_theme()
         selected_theme = default_theme
     end
 
-    local res = {}
-    table.insert(res, require("config.theme." .. selected_theme))
-
-    return res
+    return selected_theme
 end
 
 return M
