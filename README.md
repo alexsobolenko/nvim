@@ -21,7 +21,7 @@
 
 # Configuration
 
-* __Theme__ - create file `~/.config/nvim/.theme` with theme name (default - `monokai`)
+* __Theme__ - create file `~/.config/nvim/.theme` with theme name. Use filenames from dir `lua/plugins/theme` (default - `monokai`)
 
 # TODO
 
