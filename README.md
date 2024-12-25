@@ -19,11 +19,14 @@
 6. Install `ripgrep` to use `telescope` plugin
 7. Install `xclip` (or another clipboard utility) to use OS clipboard
 
+# Configuration
+
+* __Theme__ - create file `~/.config/nvim/.theme` with theme name (default - `monokai`)
+
 # TODO
 
-1. Better code formatting, index
-2. Generate phpdocs better
-3. Better php annotations
-4. Ruby?
-5. Python?
-6. Golang?
+1. Generate phpdocs
+2. Php annotations
+3. Ruby?
+4. Python?
+5. Golang?
